@@ -1,0 +1,30 @@
+{
+  "name": "smart-helmet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "prisma skills sync || exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YaraHusamAlhsini/smart-helmet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/YaraHusamAlhsini/smart-helmet/issues"
+  },
+  "homepage": "https://github.com/YaraHusamAlhsini/smart-helmet#readme",
+  "devDependencies": {
+    "@prisma/client": "^6.19.3",
+    "prisma": "^6.19.3"
+  },
+  "dependencies": {
+    "@prisma/orm-postgres": "^8.0.0-rc.20",
+    "dotenv": "^18.0.9"
+  }
+}

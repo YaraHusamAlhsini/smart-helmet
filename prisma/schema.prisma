@@ -1,0 +1,70 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+    RIDER
+    DISPATCHER
+}
+
+model User {
+    id        String   @id @default(uuid())
+    email     String   @unique
+    name      String
+    role      Role     @default(RIDER)
+    createdAt DateTime @default(now())
+    helmets   Helmet[]
+    orders    Order[]
+}
+
+model Helmet {
+    id           String   @id @default(uuid())
+    macAddress   String   @unique
+    pairingToken String
+    userId       String?
+    user         User?    @relation(fields: [userId], references: [id])
+    createdAt    DateTime @default(now())
+}
+
+model Order {
+  id             String   @id @default(uuid())
+  pickupAddress  String
+  dropoffAddress String
+  status         String   @default("PENDING")
+  riderId        String?
+  rider          User?    @relation(fields: [riderId], references: [id])
+  createdAt      DateTime @default(now())
+}
+
+model TelemetryLog {
+  id           String   @id @default(uuid())
+  helmetId     String
+  latitude     Float
+  longitude    Float
+  batteryLevel Int      
+  visorState   String   
+  timestamp    DateTime @default(now())
+}
+
+model SystemAlert {
+  id          String   @id @default(uuid())
+  helmetId    String
+  alertType   String   
+  severity    String   
+  resolved    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model VoiceCommandLog {
+  id          String   @id @default(uuid())
+  riderId     String?
+  transcript  String   
+  intent      String   
+  confidence  Float    
+  createdAt   DateTime @default(now())
+}
